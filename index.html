@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <title>
+            Weather Api
+             </title>
+        <script src="https://kit.fontawesome.com/8511459198.js" crossorigin="anonymous"></script>
+
+    </head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+        
+        .card{
+            width: 90%;
+            max-width: 470px;
+            background: linear-gradient(135deg, #00feca, #67618d);
+            color: #fff;
+            opacity: 80%;
+            margin: 100px auto 0;
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+        }
+        .search{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search input{
+            border: 0;
+            outline: 0;
+            background: #ebffcc;
+            color: #555;
+            padding: 10px 25px;
+            height: 60px;
+            border-radius: 30px;
+            flex: 1;
+            margin-right: 16px;
+            font-size: 18px;
+        }
+        button{
+            border: 0;
+            border-radius: 30px;
+        }
+        
+        button img{
+            height: 50px;
+            border: 0;
+            border-radius: 55px;
+        }
+        .weather-icon{
+            width: 170px;
+            margin-top: 30px;
+            /* height: 210px; */
+        }
+        .weather h1{
+            font-size: 70px;
+            font-weight: 500;
+        }
+        .weather h2{
+            font-size: 40px;
+            font-weight: 400;
+            margin-top: -10px;
+        }
+        .details{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
+        .col{
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .imgg{
+            width: 40px;
+            margin-right: 10px;
+        }
+        .humidity, .wind{
+            font-size: 23px;
+            margin-top: -6px;
+        }
+        .weather{
+            display: none;
+        }
+        .error{
+            text-align: left;
+            margin-left: 15px;
+            font-size: 14px;
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        
+
+        
+    </style>
+    <body class="bd" style="background-image: url('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2200&q=80');  background-size:1500px 850px; background-repeat: no-repeat;">
+        <div class="card">
+            <div class="search">
+                <input type="text" placeholder="Enter city Name" spellcheck="false">
+                <button><img src="https://img.freepik.com/premium-vector/magnifying-glass-weather-report-icon-symbols-search-discovery-cloud-research-analysis-concept-3d-vector-isolated-illustration-design-cartoon-pastel-minimal-style-design-ux-ui-print-ad_734013-267.jpg?w=2000" alt=""></button>
+            </div>
+            <div class="error">
+                <p>Invalid City Name !</p>
+            </div>
+            <div class="weather">
+                <img src="https://assets.stickpng.com/thumbs/5f463a4d803a0d0004146bd2.png" class="weather-icon" alt="">
+                <h1 class="temp">22°c</h1>
+                <h2 class="city">New York</h2>
+                <div class="details">
+                    <div class="col">
+                        <i class="fa-solid fa-water fa-2xl imgg"></i>
+                        <div>
+                           <p class="humidity">50%</p>
+                           <p>Humidity</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <i class="fa-solid fa-wind fa-2xl imgg" style="color: #ffffff;"></i>
+                        <div>
+                            <p class="wind">15 km/h</p>
+                            <p>Wind Speed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script>
+
+    const apiKey = "cf420e0156dcd8ba93e0834a7296c38a";
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+    const searchBox = document.querySelector(".search input");
+    const searchBtn = document.querySelector(".search button");
+    const weatherIcon = document.querySelector(".weather-icon")
+
+    async function checkWeather(city){
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+
+        if(response.status == 404){
+            document.querySelector(".error").style.display = "block";
+            document.querySelector(".weather").style.display = "none";
+
+        }else{
+            var data = await response.json();
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
+            document.querySelector(".humidity").innerHTML = data.main.humidity + " %";
+            document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+            if(data.weather[0].main == "Clouds"){
+                weatherIcon.src = "https://i.pinimg.com/originals/8a/93/5d/8a935da3c85c3981a0b3eabfdc6221b3.png";
+            }
+            else if(data.weather[0].main == "Clear"){
+                weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/7084/7084499.png";
+            }
+            else if(data.weather[0].main == "Rain"){
+                weatherIcon.src = "https://img.freepik.com/premium-vector/magnifying-glass-weather-report-icon-symbols-search-discovery-cloud-research-analysis-concept-3d-vector-isolated-illustration-design-cartoon-pastel-minimal-style-design-ux-ui-print-ad_734013-267.jpg?w=2000";
+            }
+            else if(data.weather[0].main == "Drizzle"){
+                weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1113/1113720.png";
+            }
+            else if(data.weather[0].main == "Mist"){
+                weatherIcon.src = "https://cdn-icons-png.flaticon.com/512/1197/1197102.png";
+            }
+
+            document.querySelector(".weather").style.display = "block";
+            document.querySelector(".error").style.display = "none";
+
+                    }
+
+
+       
+
+    }
+        searchBtn.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+        })
+
+
+
+checkWeather();
+</script>
+
+
+    </body>
+</html>
