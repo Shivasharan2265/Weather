@@ -4,6 +4,9 @@
             Weather Api
              </title>
         <script src="https://kit.fontawesome.com/8511459198.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito&display=swap" rel="stylesheet">
 
     </head>
     <style>
@@ -13,6 +16,7 @@
             font-family: sans-serif;
             box-sizing: border-box;
         }
+        
         
         .card{
             width: 90%;
@@ -42,6 +46,7 @@
             flex: 1;
             margin-right: 16px;
             font-size: 18px;
+            font-family: 'Gabarito', cursive;
         }
         button{
             border: 0;
@@ -98,11 +103,25 @@
             margin-top: 10px;
             display: none;
         }
+        .hea{
+            display: flex;
+            justify-content: center; 
+            text-align: center;
+            margin-top: 50px; 
+            margin-bottom: -50px;
+            font-family: 'Gabarito', cursive;
+            font-size: 50px;
+            color: green;
+
+        }
         
 
         
     </style>
-    <body class="bd" style="background-image: url('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2200&q=80');  background-size:1500px 850px; background-repeat: no-repeat;">
+    <body class="bd" style="background-image: url('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2200&q=80');  background-size:1600px 950px; background-repeat: no-repeat;">
+        <div class="hea">
+            <p>Weather Forecast</p>
+        </div>
         <div class="card">
             <div class="search">
                 <input type="text" placeholder="Enter city Name" spellcheck="false">
